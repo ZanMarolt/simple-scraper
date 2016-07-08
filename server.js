@@ -8,17 +8,17 @@ app.get('/scrape', function(req, res){
     
     url = 'http://www.imdb.com/title/tt1229340/';
 
-    request(url, function(error, response, html){
+    request(url, {timeout: 10000}, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
 
             var title, release, rating;
             var json = { title : "", release : "", rating : ""};
 
-            var test = $('.title-wrapper').children().text();
+            var test = $('#title-overview-widget > div.vital > div.title_block > div > div.titleBar > div.title_wrapper > h1').text();
             console.log(test)
 
-            res.send('Check console')
+            res.send('I got: '+test)
 
             
         }
